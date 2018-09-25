@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              tools:context="mm.technomation.mmtextsample.MainActivity"
+    >
+
+    <mm.technomation.mmtext.MMTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ယူနီကုဒ် စာတမ်း"
+        />
+
+    <mm.technomation.mmtext.MMButtonView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ယူနီကုဒ် ခလုတ်"
+        />
+
+    <LinearLayout
+        android:id="@+id/linearlayout_mmtextviewgroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="မင်္ဂလာပါ"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ကြိုဆိုပါတယ်"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ကျေးဇူးတင်ပါတယ်"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:onClick="showMMToast"
+            android:text="ယူနီကုဒ် Toast" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClicked"
+        android:text="Activity စမ်းသပ်ရန်"
+        />
+
+    <mm.technomation.mmtext.MMEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="မင်္ဂလာပါ" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <mm.technomation.mmtext.MMRadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="မင်္ဂလာပါ" />
+
+        <mm.technomation.mmtext.MMRadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="ကျေးဇူးတင်ပါတယ် " />
+    </RadioGroup>
+
+
+</LinearLayout>
