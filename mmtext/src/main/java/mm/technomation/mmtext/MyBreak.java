@@ -10,23 +10,111 @@ package mm.technomation.mmtext;
 
 
 /**
- *
  * @author User
  */
-class MyBreak {
+public class MyBreak {
 
-    /** Creates a new instance of MyBreak */
+    /**
+     * Creates a new instance of MyBreak
+     */
     public MyBreak() {
     }
 
-    public static String decode(String s){
+    public static String decode(String s) {
         String xs = "";
-        for(int i=0;i<s.length();i++){
+        for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             c -= 0x1041;
             xs += c;
         }
         return xs;
+    }
+
+    public static String unicodeParser(String s) {
+        char bk = '\u200b';
+        char bd = '\u200d';
+        StringBuffer sb = new StringBuffer();
+        char[] carr = s.toCharArray();
+        for (int i = 0; i < carr.length; i++) {
+            char ch = carr[i];
+            try {
+                switch (classReturner(ch)) {
+
+                    case 0:
+                        sb.append(ch);
+                        sb.append(bk);
+                        break;
+                    case 1:
+                    case 2:
+                        if (sb.charAt(sb.length() - 1) == bk) {
+                            //sb[sb.Length - 1] = ch;
+                            sb.setCharAt(sb.length() - 1, ch);
+                            sb.append(bk);
+                        } else {
+                            sb.append(ch);
+                            sb.append(bk);
+                        }
+                        break;
+                    case 3:
+                        if (classReturner(sb.charAt(sb.length() - 2)) == 0) //else if (classReturner(sb[sb.Length - 2]) == "c-con")
+                        {
+                                sb.setCharAt(sb.length() - 3, sb.charAt(sb.length() - 2));
+                                //sb[sb.Length - 3] = sb[sb.Length - 2];
+                                sb.setCharAt(sb.length() - 2, ch);
+                                //sb[sb.Length - 2] = ch;
+                                sb.setCharAt(sb.length() - 1, bk);
+                                //sb[sb.Length - 1] = bk;|
+                        }else if(sb.charAt(sb.length()-2) == '့' || sb.charAt(sb.length()-2) == 'း'){
+                            sb.deleteCharAt(sb.length()-4);
+                            sb.setCharAt(sb.length() - 1, ch);
+                            sb.append(bk);
+
+                        }else {
+                            sb.setCharAt(sb.length() - 1, ch);
+                            //sb[sb.Length - 1] = ch;
+                            sb.append(bk);
+                        }
+                        break;
+                    case 4:
+                    case 5:
+                        if (classReturner(sb.charAt(sb.length() - 3)) == 1) //if (classReturner(sb[sb.Length - 3]) == "c-fatt")
+                        {
+                            if (classReturner(sb.charAt(sb.length() - 4)) == 2) //if (classReturner(sb[sb.Length - 4]) == "c-fatt")
+                            {
+                                if (sb.charAt(sb.length() - 5) == bk) //if (sb[sb.Length - 5] == bk)
+                                {
+                                    sb.setCharAt(sb.length() - 5, bd);
+                                    //sb[sb.Length - 5] = bd;
+                                }
+                                sb.setCharAt(sb.length() - 1, ch);
+                                //sb[sb.Length - 1] = ch;
+                                sb.append(bk);
+                            } else if (sb.charAt(sb.length() - 4) == bk) //else if (sb[sb.Length - 4] == bk)
+                            {
+                                sb.setCharAt(sb.length() - 4, bd);
+                                //sb[sb.Length - 4] = bd;
+                                sb.setCharAt(sb.length() - 1, ch);
+                                //sb[sb.Length - 1] = ch;
+                                sb.append(bk);
+                            }
+                        } else {
+                            sb.setCharAt(sb.length() - 3, sb.charAt(sb.length() - 2));
+                            //sb[sb.Length - 3] = sb[sb.Length - 2];
+                            sb.setCharAt(sb.length() - 2, ch);
+                            //sb[sb.Length - 2] = ch;
+                            sb.setCharAt(sb.length() - 1, bk);
+                            //sb[sb.Length - 1] = bk;
+                        }
+                        break;
+                    default:
+                        sb.append(ch);
+                        break;
+                }
+            } catch (Exception ex) {
+
+            }
+        }
+        return sb.toString();
     }
 
     public static String parser(String s) {
@@ -113,7 +201,7 @@ class MyBreak {
                         sb.append(ch);
                         break;
                 }
-            }catch (Exception ex){
+            } catch (Exception ex) {
 
             }
         }
@@ -299,10 +387,9 @@ class MyBreak {
 
     public static String Regulate(char[] order, String p) {
         String s = "";
-        for(int i=0;i<order.length;i++){
+        for (int i = 0; i < order.length; i++) {
             char c = order[i];
-            if(p.indexOf(c) > -1)
-            {
+            if (p.indexOf(c) > -1) {
                 s += c;
             }
         }
@@ -352,6 +439,7 @@ class MyBreak {
         }
         return s;
     }
+
     public static int classReturner2(char ch) {
         if (ch == '\u200b') {
             return 10;
